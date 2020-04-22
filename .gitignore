@@ -44,5 +44,7 @@ Cargo.lock
 ### Others ###
 .env
 /dist
+releez.iml
+/.idea
 
 # End of https://www.gitignore.io/api/rust,macos
