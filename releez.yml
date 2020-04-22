@@ -1,1 +1,55 @@
-v
+version: 1.0.0
+checklist:
+  - name: "A task"
+    type: "manual"
+    message: "Some instructions"
+  - name: "Another task"
+    type: "auto"
+    run:
+      - command1
+      - command2
+  - name: "One more task"
+    type: "manual"
+    message: "Some instructions"
+  - name: "Push to Github"
+    type: "auto"
+    confirm: true
+    message: "Are you sure to push to Github?"
+    run:
+      - command1
+      - command2
+  - name: "System dependent manual task"
+    type: "manual"
+    message:
+      macos: "Instructions for macOS only"
+      linux: "Instructions for linux only"
+      windows: "Instructions for windows only"
+      other: "Instructions for other systems"
+  - name: "System dependent auto task"
+    type: "auto"
+    run:
+      macos:
+        - command1
+        - command2
+      linux:
+        - command1
+        - command2
+      windows:
+        - command1
+        - command2
+      other:
+        - command1
+        - command2
+  - name: "This task will only run on macOS"
+    type: "auto"
+    system: "macos"
+    run:
+      - command1
+      - command2
+  - name: "Release"
+    type: "auto"
+    confirm: true
+    message: "Releasing to crates.io?"
+    run:
+      - command1
+      - command2

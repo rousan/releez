@@ -14,13 +14,15 @@ fn main() {
                 .help(format!("The {} config file path", constants::CONFIG_FILE_NAME).as_str())
                 .short("c")
                 .long("config")
-                .value_name("FILE_PATH")
+                .value_name("CONFIG_PATH")
                 .takes_value(true)
                 .required(false),
         )
         .get_matches();
 
-    let config_file_path = matches.value_of("config").unwrap_or(constants::CONFIG_FILE_NAME);
+    let config_file_path = matches
+        .value_of("config")
+        .unwrap_or(constants::DEFAULT_CONFIG_FILE_PATH);
 
     if let Err(err) = releez::runner::run_release_checklist(config_file_path) {
         eprintln!("{} {}", "error:".red(), err);
