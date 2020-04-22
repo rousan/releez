@@ -11,7 +11,9 @@ pub struct HaltConfig {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct LastCheckedConfig {
+    // Task ID starts with 0
     pub task_id: u64,
+    // Sub Task ID starts with 0
     pub sub_task_id: u64,
     pub date: u128,
 }
