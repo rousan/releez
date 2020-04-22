@@ -14,8 +14,10 @@ edition = "2018"
 [dependencies]
 clap = "2.33"
 colored = "1.9"
-lazy_static = "1.4.0"
+lazy_static = "1.4"
 uuid = { version = "0.8", features = ["v4"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+serde_yaml = "0.8"
 crossterm = "0.17"
+semver = "0.9"
