@@ -1,37 +1,41 @@
 version: 1.0.0
 checklist:
-  - name: "A task"
-    type: "manual"
-    instructions: "Some instructions to do that manual task"
-  - name: "One more task"
-    type: "manual"
-    instructions:
-      - "Some instructions"
-      - "Some instructions2"
-  - name: "OS dependent manual task"
-    type: "manual"
-    instructions:
-      macos: "Instructions for macOS only"
-      linux: "Instructions for linux only"
-      windows: "Instructions for windows only"
-  - name: "OS dependent manual task"
-    type: "manual"
-    instructions:
-      macos + linux: "Instructions for macOS and linux only"
-      windows: "Instructions for windows only"
-  - name: "OS dependent manual task"
-    type: "manual"
-    instructions:
-      macos:
-        - "Instructions for macOS only"
-        - "Instructions for macOS only2"
-      linux: "Instructions for linux only"
-      windows:
-        -  "Instructions for windows only"
-        -  "Instructions for windows only2"
+#  - name: "A task"
+#    type: "manual"
+#    instructions: "Release version: $VERSION and user: $USER"
+#  - name: "One more task"
+#    type: "manual"
+#    instructions:
+#      - "Some instructions"
+#      - "Some instructions2"
+#  - name: "OS dependent manual task"
+#    type: "manual"
+#    instructions:
+#      macos: "Instructions for macOS only"
+#      linux: "Instructions for linux only"
+#      windows: "Instructions for windows only"
+#  - name: "OS dependent manual task2"
+#    type: "manual"
+#    instructions:
+#      macos + linux: "Instructions for macOS and linux only"
+#      windows: "Instructions for windows only"
+#  - name: "OS dependent manual task3"
+#    type: "manual"
+#    instructions:
+#      macos:
+#        - "Instructions for macOS only"
+#        - "Instructions for macOS only2"
+#      linux: "Instructions for linux only"
+#      windows:
+#        - "Instructions for windows only"
+#        - "Instructions for windows only2"
   - name: "Another task"
     type: "auto"
-    run: command1
+    run:
+      - echo "abc" && echo "abc" && echo "abc"
+      - echo "Lorem ipsum lorem ipsum"
+      - echo "Lorem ipsum lorem ipsum\nLorem ipsum lorem ipsum Lorem ipsum lorem ipsum"
+      - echo "Lorem ipsum lorem ipsum\nLorem ipsum lorem ipsum Lorem ipsum lorem ipsum" 1>&2
   - name: "Another task2"
     type: "auto"
     run:
@@ -47,7 +51,7 @@ checklist:
       windows:
         - command1
         - command2
-  - name: "System dependent auto task"
+  - name: "System dependent auto task2"
     type: "auto"
     run:
       macos + linux:

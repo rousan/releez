@@ -36,3 +36,63 @@ fn main() {
         eprintln!("{} {}", "error:".red(), err);
     }
 }
+
+// fn main() -> crossterm::Result<()> {
+//     use crossterm::{cursor, terminal, ExecutableCommand, QueueableCommand, Result};
+//     use std::io::{stdout, Write};
+//     use std::thread;
+//     use std::time::Duration;
+//
+//     let mut stdout = stdout();
+//
+//     // stdout.execute(terminal::Clear(terminal::ClearType::All))?;
+//     let cur_pos = cursor::position()?;
+//     println!("Running");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//     println!("gdfgdfgdfgfdg");
+//
+//     thread::sleep(Duration::from_secs(5));
+//     let cur_pos2 = cursor::position()?;
+//     stdout.execute(cursor::MoveTo(cur_pos.0, cur_pos.1));
+//     println!("Checked");
+//     stdout.execute(cursor::MoveTo(cur_pos2.0, cur_pos2.1));
+//
+//     Ok(())
+// }

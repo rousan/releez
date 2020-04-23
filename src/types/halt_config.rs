@@ -15,7 +15,8 @@ pub struct LastCheckedConfig {
     pub task_id: u64,
     // Sub Task ID starts with 0
     pub sub_task_id: u64,
-    pub date: u128,
+    // timestamp in milliseconds
+    pub date: i64,
 }
 
 impl HaltConfig {

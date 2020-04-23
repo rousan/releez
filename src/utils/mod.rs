@@ -2,6 +2,7 @@ use serde_json::Value;
 use uuid::Uuid;
 
 pub mod system_val_resolver;
+pub mod var_subs;
 
 pub fn gen_uuid() -> String {
     Uuid::new_v4()
