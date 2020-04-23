@@ -2,8 +2,9 @@ extern crate releez;
 use clap::{App, Arg};
 use colored::*;
 use releez::constants;
+use tokio::runtime::Builder;
 
-fn main() {
+async fn run() {
     let matches = App::new(constants::APP_NAME)
         .version(constants::APP_VERSION)
         .version_short("v")
@@ -32,67 +33,17 @@ fn main() {
         .unwrap_or(constants::DEFAULT_CONFIG_FILE_PATH);
     let release_version = matches.value_of("releaseVersion").unwrap();
 
-    if let Err(err) = releez::runner::run_release_checklist(config_file_path, release_version) {
+    if let Err(err) = releez::runner::run_release_checklist(config_file_path, release_version).await {
         eprintln!("{} {}", "error:".red(), err);
     }
 }
 
-// fn main() -> crossterm::Result<()> {
-//     use crossterm::{cursor, terminal, ExecutableCommand, QueueableCommand, Result};
-//     use std::io::{stdout, Write};
-//     use std::thread;
-//     use std::time::Duration;
-//
-//     let mut stdout = stdout();
-//
-//     // stdout.execute(terminal::Clear(terminal::ClearType::All))?;
-//     let cur_pos = cursor::position()?;
-//     println!("Running");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//     println!("gdfgdfgdfgfdg");
-//
-//     thread::sleep(Duration::from_secs(5));
-//     let cur_pos2 = cursor::position()?;
-//     stdout.execute(cursor::MoveTo(cur_pos.0, cur_pos.1));
-//     println!("Checked");
-//     stdout.execute(cursor::MoveTo(cur_pos2.0, cur_pos2.1));
-//
-//     Ok(())
-// }
+fn main() {
+    let mut runtime = Builder::new()
+        .basic_scheduler()
+        .enable_all()
+        .build()
+        .expect("Couldn't create Tokio runtime");
+
+    runtime.block_on(run());
+}

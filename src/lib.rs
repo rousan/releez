@@ -2,6 +2,7 @@ pub use self::error::{Error, ErrorExt, ResultExt};
 
 pub mod constants;
 mod error;
+pub mod out;
 pub mod prelude;
 pub mod runner;
 pub mod types;
