@@ -54,8 +54,6 @@ Please download it from [releases](https://github.com/rousan/releez/releases) pa
 
 After installation, you can follow the steps below to get started with `releez` tool.
 
-### Create `releez.yml` Config File
-
 First, you need to create a file `releez.yml` at the root directory of the project and write the checklist in following format:
 
 An example `releez.yml` file
