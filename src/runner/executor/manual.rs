@@ -27,7 +27,7 @@ pub async fn execute_manual_task(
             constants::LEVEL_1_SPACE_PADDING,
             "✔".green().bold(),
             instruction.cyan(),
-            "[Press 'Enter' if done]".bright_black(),
+            "[Hit 'Enter' once done]".bright_black(),
             " › ".bright_black(),
         ))
         .await?;

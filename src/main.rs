@@ -10,7 +10,7 @@ async fn run() {
         .version(constants::APP_VERSION)
         .version_short("v")
         .author(constants::APP_AUTHOR)
-        .about(constants::APP_DESCRIPTION)
+        .about("An utility tool to run application release-checklist safely.\nPlease visit https://github.com/rousan/releez for more information.")
         .arg(
             Arg::with_name("config")
                 .help(format!("The {} config file path", constants::CONFIG_FILE_NAME).as_str())

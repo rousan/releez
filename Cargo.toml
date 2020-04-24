@@ -1,6 +1,6 @@
 [package]
 name = "releez"
-version = "1.0.0"
+version = "1.0.1"
 description = "An utility tool to run application release-checklist safely."
 homepage = "https://github.com/rousan/releez"
 repository = "https://github.com/rousan/releez"
