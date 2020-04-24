@@ -1,72 +1,40 @@
 version: 1.0.0
 checklist:
-#  - name: "A task"
-#    type: "manual"
-#    instructions: "Release version: $VERSION and user: $USER"
-#  - name: "One more task"
-#    type: "manual"
-#    instructions:
-#      - "Some instructions"
-#      - "Some instructions2"
-#  - name: "OS dependent manual task"
-#    type: "manual"
-#    instructions:
-#      macos: "Instructions for macOS only"
-#      linux: "Instructions for linux only"
-#      windows: "Instructions for windows only"
-#  - name: "OS dependent manual task2"
-#    type: "manual"
-#    instructions:
-#      macos + linux: "Instructions for macOS and linux only"
-#      windows: "Instructions for windows only"
-#  - name: "OS dependent manual task3"
-#    type: "manual"
-#    instructions:
-#      macos:
-#        - "Instructions for macOS only"
-#        - "Instructions for macOS only2"
-#        - "Instructions for macOS only"
-#        - "Instructions for macOS only"
-#        - "Instructions for macOS only"
-#        - "Instructions for macOS only"
-#      linux: "Instructions for linux only"
-#      windows:
-#        - "Instructions for windows only"
-#        - "Instructions for windows only2"
-#  - name: "Another task"
-#    type: "auto"
-#    run:
-#      - echo "abc" && echo "abc" && echo "abc"
-#      - echo "Lorem ipsum lorem ipsum"
-#      - echo "Lorem ipsum lorem ipsum\nLorem ipsum lorem ipsum Lorem ipsum lorem ipsum"
-#      - echo "Write to Error stream. Lorem ipsum lorem ipsum\nLorem ipsum lorem ipsum Lorem ipsum lorem ipsum" 1>&2
-##      - cargo build --release
-#  - name: "Another task2"
-#    confirm: "Do you want to proceed?"
-#    type: "auto"
-#    run:
-#      - echo "releasing"
-##      - tusk build -v $VERSION
-#  - name: "A task"
-#    type: "manual"
-#    instructions: "Release version: $VERSION and user: $USER"
-#  - name: "System dependent auto task"
-#    type: "auto"
-#    run:
-#      macos: command1
-#      linux:
-#        - command1
-#        - command2
-#      windows:
-#        - command1
-#        - command2
-#  - name: "System dependent auto task2"
-#    type: "auto"
-#    run:
-#      macos + linux:
-#        - command1
-#        - command2
-#      windows: command1
+  - name: "First step"
+    type: "manual"
+    instructions:
+      - "Write the manual instructions or guide to do a manual task"
+      - "Another instruction"
+      - "You can access next release version as $VERSION"
+      - "You can also embed system environment variables in here as $USER or $PWD"
+  - name: "An automated task e.g. Building the project"
+    type: "auto"
+    run:
+      - echo "Build the project for version $VERSION"
+      - npm build
+  - name: "Another auto task, but it will ask to confirm before executing commands"
+    confirm: "Do you want to proceed this task to be run?"
+    type: "auto"
+    run:
+      - echo "Releasing..."
+      - npm publish
+  - name: "System dependent auto task"
+    type: "auto"
+    run:
+      macos: command1
+      linux:
+        - command1
+        - command2
+      windows:
+        - command1
+        - command2
+  - name: "System dependent auto task2"
+    type: "auto"
+    run:
+      macos + linux:
+        - command1
+        - command2
+      windows: command1
   - name: "Push to Github"
     type: "auto"
 #    confirm: "Are you sure to push to Github?"
