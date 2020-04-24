@@ -15,7 +15,7 @@ pub async fn execute_manual_task(
     root_dir: &Path,
     vars_data: &HashMap<String, String>,
 ) -> crate::Result<()> {
-    out::print(format!("{} {}\n\n", "✔ Checked:".green().bold(), task.name)).await?;
+    out::print(format!("{} {}\n\n", "✔".green().bold(), task.name)).await?;
 
     let sub_tasks = task.sub_tasks().iter().skip(start_sub_task_id as usize);
     for (sub_task, idx) in sub_tasks.zip(start_sub_task_id..) {
@@ -23,22 +23,22 @@ pub async fn execute_manual_task(
         let instruction = sub_task.trim();
 
         out::print(format!(
-            "{}{} {} {}",
+            "{}{} {} {}{}",
             constants::LEVEL_1_SPACE_PADDING,
             "✔".green().bold(),
             instruction.cyan(),
-            "[Press Enter if done or q to quit]".bright_black()
+            "[Press 'Enter' if done]".bright_black(),
+            " › ".bright_black(),
         ))
         .await?;
 
         let line = out::read_line().await?;
         if line.to_lowercase() == constants::MANUAL_TASK_QUIT_COMMAND {
+            out::print("\nQuiting the process, run command again to resume the release.\n").await?;
             std::process::exit(0);
         }
 
         helpers::save_last_checked(release_config, task_id, idx, root_dir).await?;
-
-        out::print("\n").await?;
     }
 
     out::print("\n").await?;

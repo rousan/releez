@@ -37,6 +37,26 @@ pub async fn calculate_start_task_ids(release_config: &ReleaseConfig, halt_confi
     }
 }
 
+pub async fn ask_confirmation(message: &str, default_val: &str, padding: &str) -> crate::Result<bool> {
+    out::print(format!(
+        "{}{} {} ({}){}",
+        padding,
+        "?".cyan(),
+        message.trim(),
+        default_val,
+        " › ".bright_black(),
+    ))
+    .await?;
+
+    let mut line = out::read_line().await?;
+
+    if line.is_empty() {
+        line = default_val.to_owned();
+    }
+
+    Ok(constants::BOOL_POSSIBLE_TRUTHY_INPUTS.contains(&line.to_lowercase().as_str()))
+}
+
 pub async fn ask_user_to_continue_with_halt(halt_config: &HaltConfig) -> crate::Result<bool> {
     out::print("\n").await?;
 
@@ -47,23 +67,21 @@ pub async fn ask_user_to_continue_with_halt(halt_config: &HaltConfig) -> crate::
     ))
     .await?;
 
-    out::print(format!(
-        "{} Want to resume the release? Last checked task: [{}, {}] (yes){}",
-        "?".cyan(),
-        halt_config.last_checked.task_id.to_string().as_str().cyan(),
-        halt_config.last_checked.sub_task_id.to_string().as_str().cyan(),
-        " › ".bright_black(),
-    ))
+    let confirmation = ask_confirmation(
+        format!(
+            "Want to resume the release? Last checked task: [{}, {}]",
+            halt_config.last_checked.task_id.to_string().as_str().cyan(),
+            halt_config.last_checked.sub_task_id.to_string().as_str().cyan(),
+        )
+        .as_str(),
+        "yes",
+        "",
+    )
     .await?;
 
-    let mut line = out::read_line().await?;
     out::print("\n").await?;
 
-    if line.is_empty() {
-        line = "yes".to_owned();
-    }
-
-    Ok(constants::BOOL_POSSIBLE_TRUTHY_INPUTS.contains(&line.to_lowercase().as_str()))
+    Ok(confirmation)
 }
 
 pub fn gen_vars_data(release_version: &Version) -> HashMap<String, String> {

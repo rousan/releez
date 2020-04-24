@@ -18,9 +18,16 @@ pub async fn execute_auto_task(
     root_dir: &Path,
     vars_data: &HashMap<String, String>,
 ) -> crate::Result<()> {
-    out::print(format!("{} {}\n\n", "✔ Checked:".green().bold(), task.name)).await?;
+    out::print(format!("{} {}\n\n", "✔".green().bold(), task.name)).await?;
 
-    // @todo: check if confirm attribute is given.
+    if let Some(ref confirm_msg) = task.confirm {
+        let confirmation = helpers::ask_confirmation(confirm_msg, "yes", constants::LEVEL_1_SPACE_PADDING).await?;
+        if !confirmation {
+            out::print("\nQuiting the process, run command again to resume the release.\n").await?;
+            std::process::exit(0);
+        }
+        out::print("\n").await?;
+    }
 
     let sub_tasks = task.sub_tasks().iter().skip(start_sub_task_id as usize);
     for (sub_task, idx) in sub_tasks.zip(start_sub_task_id..) {
@@ -50,8 +57,6 @@ pub async fn execute_auto_task(
         helpers::save_last_checked(release_config, task_id, idx, root_dir).await?;
         out::print("\n").await?;
     }
-
-    out::print("\n").await?;
 
     Ok(())
 }

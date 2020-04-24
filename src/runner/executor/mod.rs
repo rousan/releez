@@ -1,4 +1,5 @@
 use crate::constants;
+use crate::out;
 use crate::prelude::*;
 use crate::types::{HaltConfig, ReleaseConfig, TaskType};
 use semver::Version;
@@ -24,6 +25,8 @@ pub async fn execute_checklist(
         start_task_id = 0;
         start_sub_task_id = 0;
     }
+
+    out::print("\n").await?;
 
     for (idx, task) in release_config.checklist.iter().skip(start_task_id as usize).enumerate() {
         if idx != 0 {
