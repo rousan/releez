@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/rousan/releez">
-    <img width="200" height="200" src="https://raw.githubusercontent.com/rousan/releez/develop/logo/logo.png">
+    <img width="200" height="200" src="https://raw.githubusercontent.com/rousan/releez/develop/media/logo.png">
   </a>
   <br />
   <br />
@@ -103,6 +103,14 @@ $ releez v1.0.2
 ```
 
 That's it. It will now run these checklist and it will make sure to store the release status and if a task failed to run, it can also resume the release process from that breaking point.
+
+<div align="center">
+  <a href="https://github.com/rousan/releez">
+    <img width="200" height="200" src="https://raw.githubusercontent.com/rousan/releez/develop/media/example.png">
+  </a>
+  <br />
+  <br />
+</div>
 
 ## Contributing
 

@@ -1,42 +1,33 @@
 version: 1.0.0
 checklist:
-  - name: "First step"
+  - name: "A Manual Task"
     type: "manual"
     instructions:
-      - "Write the manual instructions or guide to do a manual task"
+      - "Write the instructions or guides to do this manual task"
       - "Another instruction"
-      - "You can access next release version as $VERSION"
-      - "You can also embed system environment variables in here as $USER or $PWD"
+      - "You can access next release version as $VERSION here"
+  - name: "You can also write instructions based on operating systems"
+    type: "manual"
+    instructions:
+      macos + linux:
+        - "This instruction will be shown on linux and macOS system"
+      windows:
+        - "This instruction will be shown on Windows system only"
   - name: "An automated task e.g. Building the project"
     type: "auto"
     run:
-      - echo "Build the project for version $VERSION"
-      - npm build
+      - echo "Build the project"
+      - echo "You can also access release version as $VERSION"
+  - name: "You can also write different commands for different Operating Systems"
+    type: "auto"
+    run:
+      macos + linux:
+        - echo "commands for macOS and linux"
+        - echo "commands for macOS and linux"
+      windows:
+        - echo "commands for Windows only"
   - name: "Another auto task, but it will ask to confirm before executing commands"
     confirm: "Do you want to proceed this task to be run?"
     type: "auto"
     run:
       - echo "Releasing..."
-      - npm publish
-  - name: "System dependent auto task"
-    type: "auto"
-    run:
-      macos: command1
-      linux:
-        - command1
-        - command2
-      windows:
-        - command1
-        - command2
-  - name: "System dependent auto task2"
-    type: "auto"
-    run:
-      macos + linux:
-        - command1
-        - command2
-      windows: command1
-  - name: "Push to Github"
-    type: "auto"
-#    confirm: "Are you sure to push to Github?"
-    run:
-      - printf "Text \033[0;31mRED\033[0m Color"
