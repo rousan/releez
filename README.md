@@ -35,6 +35,8 @@ This config file is kind of alternative to our `release-checklis.txt` file or wh
 you have to mention the commands to run or if it's a manual task, then you have to write the instructions or guide to do that task manually. That's it, it will run your checklist and tracks
 the progress and it can also resume the release if it fails at some point.
 
+**Fun Fact**: _This project itself uses `releez` to release itself._
+
 ## Install
 
 ### macOS

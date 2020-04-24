@@ -8,6 +8,7 @@ tasks:
     run:
       - command: cargo install --version 0.1.16 cross
       - command: go get github.com/aktau/github-release
+      - command: cargo install releez
   build:macos:
     run:
       - command: cargo build --release
