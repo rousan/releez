@@ -2,6 +2,7 @@ extern crate releez;
 use clap::{App, Arg};
 use colored::*;
 use releez::constants;
+use releez::out;
 use tokio::runtime::Builder;
 
 async fn run() {
@@ -34,7 +35,7 @@ async fn run() {
     let release_version = matches.value_of("releaseVersion").unwrap();
 
     if let Err(err) = releez::runner::run_release_checklist(config_file_path, release_version).await {
-        eprintln!("{} {}", "error:".red(), err);
+        out::print_err(format!("\n{} {}", "error:".red(), err)).await.unwrap();
     }
 }
 

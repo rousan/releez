@@ -15,7 +15,7 @@ pub async fn execute_checklist(
     release_version: &Version,
     root_dir: &Path,
 ) -> crate::Result<()> {
-    let vars_data = helpers::gen_vars_data(release_version).await;
+    let vars_data = helpers::gen_vars_data(release_version);
 
     let (mut start_task_id, mut start_sub_task_id) =
         helpers::calculate_start_task_ids(release_config, halt_config).await;

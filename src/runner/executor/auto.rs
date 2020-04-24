@@ -1,3 +1,4 @@
+use crate::constants;
 use crate::out;
 use crate::prelude::*;
 use crate::runner::executor::helpers;
@@ -26,10 +27,12 @@ pub async fn execute_auto_task(
         let command = sub_task.trim();
 
         out::print(format!(
-            "   {} {} {}\n     ",
+            "{}{} {} {}\n{}",
+            constants::LEVEL_1_SPACE_PADDING,
             "✔".green().bold(),
             "$".bold(),
-            command.cyan()
+            command.cyan(),
+            constants::LEVEL_2_SPACE_PADDING
         ))
         .await?;
 
@@ -84,7 +87,7 @@ async fn run_command(
 
     let stdout_task_handle = tokio::spawn(async move {
         if let Some(mut stdout_child) = stdout_child {
-            helpers::print_reader_with_padding(&mut stdout_child, "     ").await
+            helpers::print_reader_with_padding(&mut stdout_child, constants::LEVEL_2_SPACE_PADDING, false).await
         } else {
             crate::Result::Ok(())
         }
@@ -92,7 +95,7 @@ async fn run_command(
 
     let stderr_task_handle = tokio::spawn(async move {
         if let Some(mut stderr_child) = stderr_child {
-            helpers::print_reader_with_padding(&mut stderr_child, "     ").await
+            helpers::print_reader_with_padding(&mut stderr_child, constants::LEVEL_2_SPACE_PADDING, true).await
         } else {
             crate::Result::Ok(())
         }

@@ -66,7 +66,7 @@ pub async fn ask_user_to_continue_with_halt(halt_config: &HaltConfig) -> crate::
     Ok(constants::BOOL_POSSIBLE_TRUTHY_INPUTS.contains(&line.to_lowercase().as_str()))
 }
 
-pub async fn gen_vars_data(release_version: &Version) -> HashMap<String, String> {
+pub fn gen_vars_data(release_version: &Version) -> HashMap<String, String> {
     let mut h = HashMap::new();
     h.insert(constants::VAR_NAME_VERSION.to_owned(), release_version.to_string());
     h
@@ -75,12 +75,17 @@ pub async fn gen_vars_data(release_version: &Version) -> HashMap<String, String>
 pub async fn print_reader_with_padding<R: AsyncRead + std::marker::Unpin>(
     r: &mut R,
     padding: &str,
+    is_err: bool,
 ) -> crate::Result<()> {
     let r = BufReader::new(r);
     let mut lines = r.lines();
 
     while let Some(line) = lines.next_line().await.wrap()? {
-        out::print(format!("{}\n{}", line, padding)).await.wrap()?;
+        if is_err {
+            out::print_err(format!("{}\n{}", line.trim(), padding)).await.wrap()?;
+        } else {
+            out::print(format!("{}\n{}", line.trim(), padding)).await.wrap()?;
+        }
     }
 
     Ok(())

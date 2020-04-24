@@ -13,3 +13,6 @@ pub const BOOL_POSSIBLE_TRUTHY_INPUTS: [&'static str; 2] = ["yes", "y"];
 pub const BOOL_POSSIBLE_FALSY_INPUTS: [&'static str; 2] = ["no", "n"];
 
 pub const MANUAL_TASK_QUIT_COMMAND: &'static str = "q";
+
+pub const LEVEL_1_SPACE_PADDING: &'static str = "   ";
+pub const LEVEL_2_SPACE_PADDING: &'static str = "     ";

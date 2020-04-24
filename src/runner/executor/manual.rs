@@ -23,7 +23,8 @@ pub async fn execute_manual_task(
         let instruction = sub_task.trim();
 
         out::print(format!(
-            "   {} {} {}",
+            "{}{} {} {}",
+            constants::LEVEL_1_SPACE_PADDING,
             "✔".green().bold(),
             instruction.cyan(),
             "[Press Enter if done or q to quit]".bright_black()

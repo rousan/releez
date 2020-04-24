@@ -4,8 +4,8 @@ version = "1.0.0"
 description = "An utility tool to run application release-checklist very safely."
 homepage = "https://github.com/rousan/releez"
 repository = "https://github.com/rousan/releez"
-keywords = ["release","checklist","runner"]
-categories = ["command-line-utilities"]
+keywords = ["release","checklist","runner", "asynchronous"]
+categories = ["command-line-utilities", "asynchronous"]
 authors = ["Rousan Ali <hello@rousan.io>"]
 readme = "README.md"
 license = "MIT"
@@ -19,7 +19,6 @@ uuid = { version = "0.8", features = ["v4"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 serde_yaml = "0.8"
-crossterm = "0.17"
 semver = "0.9"
 chrono = "0.4"
 regex = "1.3"

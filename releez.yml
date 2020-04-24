@@ -36,6 +36,7 @@ checklist:
       - echo "Lorem ipsum lorem ipsum"
       - echo "Lorem ipsum lorem ipsum\nLorem ipsum lorem ipsum Lorem ipsum lorem ipsum"
       - echo "Lorem ipsum lorem ipsum\nLorem ipsum lorem ipsum Lorem ipsum lorem ipsum" 1>&2
+      - cargo build --release
   - name: "Another task2"
     type: "auto"
     run:
