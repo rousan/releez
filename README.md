@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/rousan/releez">
-    <img width="200" height="200" src="https://avatars3.githubusercontent.com/u/63495711?s=200&v=4">
+    <img width="200" height="200" src="https://raw.githubusercontent.com/rousan/releez/develop/logo/logo.png">
   </a>
   <br />
   <br />
@@ -54,16 +54,16 @@ Please download it from [releases](https://github.com/rousan/releez/releases) pa
 
 After installation, you can follow the steps below to get started with `releez` tool.
 
-First, you need to create a file `releez.yml` at the root directory of the project and write the checklist in following format:
+First, you need to create a file named `releez.yml` at the root directory of the project and write the release-checklist in the following format:
 
-An example `releez.yml` file
+An example `releez.yml` file:
 ```yaml
 version: 1.0.0
 checklist:
-  - name: "First Manual Task"
+  - name: "A Manual Task"
     type: "manual"
     instructions:
-      - "Write the instructions or guide to do this manual task"
+      - "Write the instructions or guides to do this manual task"
       - "Another instruction"
       - "You can access next release version as $VERSION here"
       - "You can also  embed system environment variables in here e.g. $USER or $PWD"
@@ -78,8 +78,8 @@ checklist:
     type: "auto"
     run:
       - echo "Build the project"
-      - echo "You can also access release version as $VERSION"
       - npm build
+      - echo "You can also access release version as $VERSION"
   - name: "You can also write different commands for different Operating Systems"
     type: "auto"
     run:
