@@ -65,37 +65,37 @@ An example `releez.yml` file:
 ```yaml
 version: 1.0.0
 checklist:
-  - name: "A Manual Task"
-    type: "manual"
+  - name: A Manual Task
+    type: manual
     instructions:
-      - "Write the instructions or guides to do this manual task"
-      - "Another instruction"
-      - "You can access next release version as $VERSION here"
-      - "You can also  embed system environment variables in here e.g. $USER or $PWD"
-  - name: "You can also write instructions based on operating systems"
-    type: "manual"
+      - Write the instructions or guides to do this manual task
+      - Another instruction
+      - You can access next release version as $VERSION here
+      - You can also  embed system environment variables in here e.g. $USER or $PWD
+  - name: You can also write instructions based on operating systems
+    type: manual
     instructions:
       macos + linux:
-        - "This instruction will be shown on linux and macOS system"
+        - This instruction will be shown on linux and macOS system
       windows:
-        - "This instruction will be shown on Windows system only"
-  - name: "An automated task e.g. Building the project"
-    type: "auto"
+        - This instruction will be shown on Windows system only
+  - name: An automated task e.g. Building the project
+    type: auto
     run:
       - echo "Build the project"
       - npm build
       - echo "You can also access release version as $VERSION"
-  - name: "You can also write different commands for different Operating Systems"
-    type: "auto"
+  - name: You can also write different commands for different Operating Systems
+    type: auto
     run:
       macos + linux:
         - echo "commands for macOS and linux"
         - echo "commands for macOS and linux"
       windows:
         - echo "commands for Windows only"
-  - name: "Another auto task, but it will ask to confirm before executing commands"
-    confirm: "Do you want to proceed this task to be run?"
-    type: "auto"
+  - name: Another auto task, but it will ask to confirm before executing commands
+    confirm: Do you want to proceed this task to be run?
+    type: auto
     run:
       - echo "Releasing..."
       - npm publish
