@@ -18,8 +18,8 @@ An utility tool to run application `release-checklist` safely.
 ## Why to use releez?
 
 We all document a checklist prior to an application release to avoid any mistakes. Somebody writes them to a file called `release-checklist.txt` or someone documents them somewhere else.
-So, two types of tasks can be involved during a release:
 
+So, two types of tasks can be involved during a release:
 1. **Automated**: These tasks are automated through running scripts.
 2. **Manual**: These tasks require manual efforts as these can't be automated or very difficult to automate.
 
@@ -33,7 +33,7 @@ Here, comes the `releez` tool which does exactly what it means. It requires a co
 
 This config file is kind of alternative to our `release-checklis.txt` file or whatever we use to document the checklist. You have to just mention the task name and the task type (`auto` or `manual`), if it's an automated task then
 you have to mention the commands to run or if it's a manual task, then you have to write the instructions or guide to do that task manually. That's it, it will run your checklist and tracks
-the progress and it can also resume the release if you want.
+the progress and it can also resume the release if it fails at some point.
 
 ## Install
 
