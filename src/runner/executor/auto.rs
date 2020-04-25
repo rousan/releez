@@ -17,7 +17,7 @@ pub async fn execute_auto_task(
     root_dir: &Path,
     vars_data: &HashMap<String, String>,
 ) -> crate::Result<()> {
-    out::print(format!("{} {}\n\n", "Running:".yellow().bold(), task.name.as_str())).await?;
+    out::print(format!("{} {}\n\n", "Running:".green().bold(), task.name.as_str())).await?;
 
     if let Some(ref confirm_msg) = task.confirm {
         let confirmation = helpers::ask_confirmation(confirm_msg, "yes", "").await?;
@@ -50,7 +50,12 @@ pub async fn execute_auto_task(
         out::print("\n").await?;
     }
 
-    out::print(format!("{}\n\n", "Checked!".green().bold())).await?;
+    out::print(format!(
+        "\n{}{}\n\n",
+        "Checked: ".bright_black(),
+        task.name.as_str().bright_black()
+    ))
+    .await?;
 
     Ok(())
 }
