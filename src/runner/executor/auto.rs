@@ -51,7 +51,7 @@ pub async fn execute_auto_task(
     }
 
     out::print(format!(
-        "\n{}{}\n\n",
+        "{}{}\n\n",
         "Checked: ".bright_black(),
         task.name.as_str().bright_black()
     ))
