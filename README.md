@@ -111,7 +111,7 @@ That's it. It will now run these checklist and it will make sure to store the re
 
 <div align="center">
   <a href="https://github.com/rousan/releez">
-    <img src="https://raw.githubusercontent.com/rousan/releez/develop/media/demo.gif">
+    <img src="https://raw.githubusercontent.com/rousan/releez/develop/media/releez-demo.gif">
   </a>
   <br />
   <br />

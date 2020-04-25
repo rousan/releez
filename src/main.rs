@@ -35,7 +35,7 @@ async fn run() {
     let release_version = matches.value_of("releaseVersion").unwrap();
 
     if let Err(err) = releez::runner::run_release_checklist(config_file_path, release_version).await {
-        out::print_err(format!("\n{} {}", "error:".red(), err)).await.unwrap();
+        out::print_err(format!("\n{} {}\n", "error:".red(), err)).await.unwrap();
     }
 }
 
