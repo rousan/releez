@@ -1,4 +1,3 @@
-use crate::constants;
 use crate::out;
 use crate::prelude::*;
 use crate::runner::executor::helpers;
@@ -18,10 +17,11 @@ pub async fn execute_auto_task(
     root_dir: &Path,
     vars_data: &HashMap<String, String>,
 ) -> crate::Result<()> {
-    out::print(format!("{} {}\n\n", "✔".green().bold(), task.name)).await?;
+    out::print(format!("{} {}\n\n", "Running:".yellow().bold(), task.name.as_str())).await?;
 
     if let Some(ref confirm_msg) = task.confirm {
-        let confirmation = helpers::ask_confirmation(confirm_msg, "yes", constants::LEVEL_1_SPACE_PADDING).await?;
+        let confirmation = helpers::ask_confirmation(confirm_msg, "yes", "").await?;
+
         if !confirmation {
             out::print("\nQuiting the process, run command again to resume the release.\n").await?;
             std::process::exit(0);
@@ -33,15 +33,7 @@ pub async fn execute_auto_task(
     for (sub_task, idx) in sub_tasks.zip(start_sub_task_id..) {
         let command = sub_task.trim();
 
-        out::print(format!(
-            "{}{} {} {}\n{}",
-            constants::LEVEL_1_SPACE_PADDING,
-            "✔".green().bold(),
-            "$".bold(),
-            command.cyan(),
-            constants::LEVEL_2_SPACE_PADDING
-        ))
-        .await?;
+        out::print(format!("{} {}\n", "$".cyan(), command.cyan())).await?;
 
         let status = run_command(command, task, root_dir, vars_data).await?;
 
@@ -58,6 +50,8 @@ pub async fn execute_auto_task(
         out::print("\n").await?;
     }
 
+    out::print(format!("{}\n\n", "Checked!".green().bold())).await?;
+
     Ok(())
 }
 
@@ -73,11 +67,11 @@ async fn run_command(
         ("sh", ["-c", command])
     };
 
-    let mut child = Command::new(program)
+    let child = Command::new(program)
         .args(&args)
         .stdin(Stdio::inherit())
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
+        .stdout(Stdio::inherit())
+        .stderr(Stdio::inherit())
         .current_dir(root_dir)
         .envs(vars_data.iter())
         .kill_on_drop(true)
@@ -86,30 +80,6 @@ async fn run_command(
             "Couldn't run the auto task command: '{}' for task: '{}', maybe the 'sh' or 'cmd' program not found on the system",
             command, task.name
         ))?;
-
-    let stdout_child = child.stdout.take();
-    let stderr_child = child.stderr.take();
-
-    let stdout_task_handle = tokio::spawn(async move {
-        if let Some(mut stdout_child) = stdout_child {
-            helpers::print_reader_with_padding(&mut stdout_child, constants::LEVEL_2_SPACE_PADDING, false).await
-        } else {
-            crate::Result::Ok(())
-        }
-    });
-
-    let stderr_task_handle = tokio::spawn(async move {
-        if let Some(mut stderr_child) = stderr_child {
-            helpers::print_reader_with_padding(&mut stderr_child, constants::LEVEL_2_SPACE_PADDING, true).await
-        } else {
-            crate::Result::Ok(())
-        }
-    });
-
-    let (stdout_res, stderr_res) = tokio::try_join!(stdout_task_handle, stderr_task_handle).wrap()?;
-
-    stdout_res.context("Couldn't add padding to child process's stdout")?;
-    stderr_res.context("Couldn't add padding to child process's stderr")?;
 
     let status = child.await.wrap()?;
 

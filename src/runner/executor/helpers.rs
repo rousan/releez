@@ -8,14 +8,15 @@ use semver::Version;
 use std::collections::HashMap;
 use std::path::Path;
 use tokio::fs;
-use tokio::io::BufReader;
 
 pub async fn calculate_start_task_ids(release_config: &ReleaseConfig, halt_config: Option<&HaltConfig>) -> (u64, u64) {
     let mut last_checked_task_ids: Option<(u64, u64)> = None;
 
     if let Some(halt_config) = halt_config {
         if halt_config.version == release_config.version
-            && ask_user_to_continue_with_halt(halt_config).await.unwrap_or(false)
+            && ask_user_to_continue_with_halt(release_config, halt_config)
+                .await
+                .unwrap_or(false)
         {
             last_checked_task_ids = Some((halt_config.last_checked.task_id, halt_config.last_checked.sub_task_id));
         }
@@ -57,29 +58,36 @@ pub async fn ask_confirmation(message: &str, default_val: &str, padding: &str) -
     Ok(constants::BOOL_POSSIBLE_TRUTHY_INPUTS.contains(&line.to_lowercase().as_str()))
 }
 
-pub async fn ask_user_to_continue_with_halt(halt_config: &HaltConfig) -> crate::Result<bool> {
+pub async fn ask_user_to_continue_with_halt(
+    release_config: &ReleaseConfig,
+    halt_config: &HaltConfig,
+) -> crate::Result<bool> {
     out::print("\n").await?;
 
-    out::print(format!(
-        "{} Found {} file.\n",
-        "✔".green(),
-        constants::HALT_CONFIG_FILE_NAME.green()
-    ))
-    .await?;
+    out::print(format!("Previous release was not completed properly.\n")).await?;
 
-    let confirmation = ask_confirmation(
-        format!(
-            "Want to resume the release? Last checked task: [{}, {}]",
-            halt_config.last_checked.task_id.to_string().as_str().cyan(),
-            halt_config.last_checked.sub_task_id.to_string().as_str().cyan(),
-        )
-        .as_str(),
-        "yes",
-        "",
-    )
-    .await?;
+    let (last_checked_task_name, is_partial_completion) = release_config
+        .checklist
+        .get(halt_config.last_checked.task_id as usize)
+        .map(|t| {
+            (
+                t.name.as_str(),
+                halt_config.last_checked.sub_task_id < ((t.sub_tasks().len() as u64) - 1),
+            )
+        })
+        .unwrap_or(("na", false));
 
-    out::print("\n").await?;
+    if is_partial_completion {
+        out::print(format!(
+            "Last partially checked task: '{}'.\n",
+            last_checked_task_name.cyan()
+        ))
+        .await?;
+    } else {
+        out::print(format!("Last checked task: '{}'.\n", last_checked_task_name.cyan())).await?;
+    }
+
+    let confirmation = ask_confirmation("Do you want to resume the release?", "yes", "").await?;
 
     Ok(confirmation)
 }
@@ -88,25 +96,6 @@ pub fn gen_vars_data(release_version: &Version) -> HashMap<String, String> {
     let mut h = HashMap::new();
     h.insert(constants::VAR_NAME_VERSION.to_owned(), release_version.to_string());
     h
-}
-
-pub async fn print_reader_with_padding<R: AsyncRead + std::marker::Unpin>(
-    r: &mut R,
-    padding: &str,
-    is_err: bool,
-) -> crate::Result<()> {
-    let r = BufReader::new(r);
-    let mut lines = r.lines();
-
-    while let Some(line) = lines.next_line().await.wrap()? {
-        if is_err {
-            out::print_err(format!("{}\n{}", line.trim(), padding)).await.wrap()?;
-        } else {
-            out::print(format!("{}\n{}", line.trim(), padding)).await.wrap()?;
-        }
-    }
-
-    Ok(())
 }
 
 pub async fn save_last_checked(

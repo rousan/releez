@@ -15,7 +15,7 @@ pub async fn execute_manual_task(
     root_dir: &Path,
     vars_data: &HashMap<String, String>,
 ) -> crate::Result<()> {
-    out::print(format!("{} {}\n\n", "✔".green().bold(), task.name)).await?;
+    out::print(format!("{} {}\n\n", "Running:".yellow().bold(), task.name.as_str())).await?;
 
     let sub_tasks = task.sub_tasks().iter().skip(start_sub_task_id as usize);
     for (sub_task, idx) in sub_tasks.zip(start_sub_task_id..) {
@@ -23,9 +23,8 @@ pub async fn execute_manual_task(
         let instruction = sub_task.trim();
 
         out::print(format!(
-            "{}{} {} {}{}",
-            constants::LEVEL_1_SPACE_PADDING,
-            "✔".green().bold(),
+            "{} {} {}{}",
+            "›".cyan(),
             instruction.cyan(),
             "[Hit 'Enter' once done]".bright_black(),
             " › ".bright_black(),
@@ -41,7 +40,7 @@ pub async fn execute_manual_task(
         helpers::save_last_checked(release_config, task_id, idx, root_dir).await?;
     }
 
-    out::print("\n").await?;
+    out::print(format!("\n{}\n\n", "Checked!".green().bold())).await?;
 
     Ok(())
 }

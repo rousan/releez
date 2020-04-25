@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/rousan/releez">
-    <img width="200" height="200" src="https://raw.githubusercontent.com/rousan/releez/develop/media/logo.png">
+    <img width="200" height="200" src="https://raw.githubusercontent.com/rousan/releez/master/media/logo.png">
   </a>
   <br />
   <br />
@@ -111,7 +111,7 @@ That's it. It will now run these checklist and it will make sure to store the re
 
 <div align="center">
   <a href="https://github.com/rousan/releez">
-    <img src="https://raw.githubusercontent.com/rousan/releez/develop/media/demo.gif">
+    <img src="https://raw.githubusercontent.com/rousan/releez/master/media/releez-demo.gif">
   </a>
   <br />
   <br />
