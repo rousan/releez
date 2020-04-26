@@ -101,6 +101,8 @@ checklist:
       - npm publish
 ```
 
+Then ignore `.halt.releez.yml` file in `.gitignore` file as this file is used to store release state and we don't to make our working directory dirty for this.
+
 Then, when you're ready to release the app, you need to run the following command at the root directory of the project with the next release version e.g. `v1.0.2` :
 
 ```sh
