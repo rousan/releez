@@ -35,7 +35,7 @@ checklist:
   - name: Edit tag on Github
     type: manual
     instructions:
-      - Tags are pushed to Github(https://github.com/rousan/releez/releases). Edit it there and make it a release.
+      - Tag is pushed to Github(https://github.com/rousan/releez/releases). Edit it there and make it a release.
   - name: Make a build
     type: auto
     run:
